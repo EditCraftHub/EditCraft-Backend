@@ -1,0 +1,121 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "EditCraft API",
+    "version": "1.0.0",
+    "description": "API documentation for EditCraft Backend."
+  },
+  "servers": [
+    {
+      "url": "http://localhost:5000",
+      "description": "Local server"
+    }
+  ],
+  "paths": {
+    "/": {
+      "get": {
+        "summary": "Root endpoint",
+        "description": "Returns a welcome message.",
+        "responses": {
+          "200": {
+            "description": "API is running",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string",
+                  "example": "Welcome to the API"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/api/auth/signup": {
+      "post": {
+        "summary": "Register a new user",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": { "type": "string" },
+                  "username": { "type": "string" },
+                  "fullname": { "type": "string" },
+                  "password": { "type": "string" }
+                },
+                "required": ["email", "username", "fullname", "password"]
+              }
+            }
+          }
+        },
+        "responses": { "200": { "description": "Signup successful" } }
+      }
+    },
+    "/v1/api/auth/login": {
+      "post": {
+        "summary": "Login user",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": { "type": "string" },
+                  "password": { "type": "string" }
+                },
+                "required": ["email", "password"]
+              }
+            }
+          }
+        },
+        "responses": { "200": { "description": "Login successful" } }
+      }
+    },
+    "/v1/api/user/all": {
+      "get": {
+        "summary": "Get all users except current user",
+        "responses": { "200": { "description": "List of users" } }
+      }
+    },
+    "/v1/api/post/all-post": {
+      "get": {
+        "summary": "Get all posts",
+        "responses": { "200": { "description": "List of posts" } }
+      }
+    },
+    "/v1/api/ban/ban/{id}": {
+      "put": {
+        "summary": "Ban a user by ID",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": { "200": { "description": "User banned" } }
+      }
+    },
+    "/v1/api/payment/create-order": {
+      "post": {
+        "summary": "Create Razorpay order",
+        "responses": { "200": { "description": "Order created" } }
+      }
+    },
+    "/v1/api/messages/chats": {
+      "get": {
+        "summary": "Get all user chats",
+        "responses": { "200": { "description": "List of chats" } }
+      }
+    },
+    "/v1/api/portfolio/get-portfolio/{username}": {
+      "get": {
+        "summary": "Get portfolio by username",
+        "parameters": [
+          { "name": "username", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": { "200": { "description": "Portfolio data" } }
+      }
+    }
+  }
+}
