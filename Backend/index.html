@@ -24,15 +24,16 @@
             position: relative;
         }
 
-        /* Animated Background Blobs */
+        /* Animated Background Blobs - Optimized */
         .blob {
             position: fixed;
             border-radius: 50%;
-            filter: blur(80px);
+            filter: blur(70px);
             opacity: 0.3;
             mix-blend-mode: screen;
             z-index: 1;
             pointer-events: none;
+            will-change: transform;
         }
 
         .blob1 {
@@ -41,7 +42,7 @@
             background: rgba(206, 234, 69, 0.4);
             top: 10%;
             left: 10%;
-            animation: blob 8s infinite;
+            animation: blob1 10s ease-in-out infinite;
         }
 
         .blob2 {
@@ -50,8 +51,7 @@
             background: rgba(147, 51, 234, 0.3);
             top: 40%;
             right: 10%;
-            animation: blob 10s infinite;
-            animation-delay: 2s;
+            animation: blob2 12s ease-in-out infinite;
         }
 
         .blob3 {
@@ -60,14 +60,22 @@
             background: rgba(236, 72, 153, 0.3);
             bottom: 10%;
             left: 30%;
-            animation: blob 12s infinite;
-            animation-delay: 4s;
+            animation: blob3 14s ease-in-out infinite;
         }
 
-        @keyframes blob {
+        @keyframes blob1 {
             0%, 100% { transform: translate(0, 0) scale(1); }
-            33% { transform: translate(50px, -70px) scale(1.15); }
-            66% { transform: translate(-30px, 40px) scale(0.9); }
+            50% { transform: translate(40px, -50px) scale(1.1); }
+        }
+
+        @keyframes blob2 {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(-30px, 40px) scale(1.08); }
+        }
+
+        @keyframes blob3 {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(35px, -35px) scale(1.12); }
         }
 
         /* Grid Background */
@@ -82,17 +90,18 @@
             pointer-events: none;
         }
 
-        /* Particles Effect */
+        /* Particles Effect - Optimized */
         .particle {
             position: fixed;
-            width: 4px;
-            height: 4px;
+            width: 3px;
+            height: 3px;
             background: #ceea45;
             border-radius: 50%;
             pointer-events: none;
             z-index: 2;
-            opacity: 0.6;
-            box-shadow: 0 0 10px #ceea45;
+            opacity: 0.5;
+            box-shadow: 0 0 8px #ceea45;
+            will-change: transform;
         }
 
         /* Container */
@@ -104,8 +113,9 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 20px;
+            padding: 40px 20px;
             text-align: center;
+            max-width: 100vw;
         }
 
         /* Status Badge */
@@ -115,7 +125,8 @@
             gap: 10px;
             padding: 12px 28px;
             background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(20px);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
             border: 2px solid rgba(206, 234, 69, 0.3);
             border-radius: 50px;
             font-size: 14px;
@@ -131,7 +142,7 @@
             height: 12px;
             background: #22c55e;
             border-radius: 50%;
-            animation: pulse 2s infinite;
+            animation: pulse 2s ease-in-out infinite;
             box-shadow: 0 0 20px rgba(34, 197, 94, 0.8);
         }
 
@@ -181,6 +192,7 @@
             color: #a1a1aa;
             max-width: 900px;
             margin: 0 auto 40px;
+            padding: 0 20px;
         }
 
         .highlight {
@@ -196,17 +208,20 @@
             max-width: 1200px;
             width: 100%;
             margin: 60px auto;
+            padding: 0 20px;
         }
 
         .feature-card {
             padding: 32px;
             background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(20px);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
             border: 2px solid rgba(255, 255, 255, 0.1);
             border-radius: 24px;
-            transition: all 0.4s ease;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
             overflow: hidden;
+            will-change: transform;
         }
 
         .feature-card::before {
@@ -218,7 +233,7 @@
             bottom: 0;
             background: linear-gradient(135deg, rgba(206, 234, 69, 0.1), transparent);
             opacity: 0;
-            transition: opacity 0.4s ease;
+            transition: opacity 0.3s ease;
         }
 
         .feature-card:hover {
@@ -243,12 +258,12 @@
             margin-bottom: 20px;
             position: relative;
             z-index: 1;
-            animation: iconBounce 2s ease-in-out infinite;
+            animation: iconBounce 3s ease-in-out infinite;
         }
 
         @keyframes iconBounce {
             0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
+            50% { transform: translateY(-8px); }
         }
 
         .feature-title {
@@ -271,26 +286,30 @@
         /* CTA Section */
         .cta-section {
             margin-top: 60px;
+            width: 100%;
+            max-width: 500px;
+            padding: 0 20px;
         }
 
         .notify-form {
             display: flex;
             flex-direction: column;
             gap: 16px;
-            max-width: 500px;
-            margin: 0 auto;
+            width: 100%;
         }
 
         .email-input {
             padding: 18px 24px;
             font-size: 18px;
             background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(20px);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
             border: 2px solid rgba(255, 255, 255, 0.1);
             border-radius: 12px;
             color: #ffffff;
             transition: all 0.3s ease;
             font-weight: 500;
+            will-change: transform;
         }
 
         .email-input::placeholder {
@@ -317,11 +336,12 @@
             border: none;
             border-radius: 16px;
             cursor: pointer;
-            transition: all 0.4s ease;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             text-decoration: none;
             box-shadow: 0 10px 40px rgba(206, 234, 69, 0.4);
             position: relative;
             overflow: hidden;
+            will-change: transform;
         }
 
         .cta-button::before {
@@ -402,13 +422,15 @@
             gap: 20px;
             justify-content: center;
             margin-bottom: 20px;
+            flex-wrap: wrap;
         }
 
         .social-link {
             width: 48px;
             height: 48px;
             background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(20px);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
             border: 2px solid rgba(255, 255, 255, 0.1);
             border-radius: 12px;
             display: flex;
@@ -416,8 +438,9 @@
             justify-content: center;
             color: #a1a1aa;
             text-decoration: none;
-            transition: all 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             font-size: 20px;
+            will-change: transform;
         }
 
         .social-link:hover {
@@ -467,7 +490,7 @@
 
         @media (max-width: 480px) {
             .container {
-                padding: 16px;
+                padding: 30px 16px;
             }
 
             .beta-tag {
@@ -507,23 +530,23 @@
     <!-- Main Container -->
     <div class="container">
         <!-- Status Badge -->
-        <div class="status-badge" data-aos="fade-down" data-aos-duration="800">
+        <div class="status-badge" data-aos="fade-down" data-aos-duration="600" data-aos-once="true">
             <span class="status-dot"></span>
             WE ARE ONLINE
         </div>
 
         <!-- Main Heading -->
-        <h1 class="main-heading" data-aos="zoom-in" data-aos-duration="1000" data-aos-delay="200">
+        <h1 class="main-heading" data-aos="zoom-in" data-aos-duration="700" data-aos-delay="100" data-aos-once="true">
             Something Amazing<br>Is Coming Soon
         </h1>
 
         <!-- Beta Tag -->
-        <div class="beta-tag" data-aos="flip-up" data-aos-duration="800" data-aos-delay="400">
+        <div class="beta-tag" data-aos="flip-up" data-aos-duration="600" data-aos-delay="200" data-aos-once="true">
             <span class="sparkle">✨</span> BETA TESTING IN PROGRESS
         </div>
 
         <!-- Description -->
-        <p class="description" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="600">
+        <p class="description" data-aos="fade-up" data-aos-duration="700" data-aos-delay="300" data-aos-once="true">
             We're currently under development and conducting <span class="highlight">beta testing</span>. 
             Our team is working tirelessly to bring you an incredible experience. 
             <strong>We're very excited to launch our startup very soon!</strong> 
@@ -532,19 +555,19 @@
 
         <!-- Features Grid -->
         <div class="features">
-            <div class="feature-card" data-aos="fade-right" data-aos-duration="800" data-aos-delay="100">
+            <div class="feature-card" data-aos="fade-right" data-aos-duration="600" data-aos-delay="50" data-aos-once="true">
                 <div class="feature-icon">🚀</div>
                 <h3 class="feature-title">Launching Soon</h3>
                 <p class="feature-text">Our platform is in final stages of development. Get ready for an amazing experience!</p>
             </div>
 
-            <div class="feature-card" data-aos="fade-up" data-aos-duration="800" data-aos-delay="300">
+            <div class="feature-card" data-aos="fade-up" data-aos-duration="600" data-aos-delay="150" data-aos-once="true">
                 <div class="feature-icon">⚡</div>
                 <h3 class="feature-title">Beta Testing</h3>
                 <p class="feature-text">We're fine-tuning every detail to ensure perfection. Your patience will be rewarded!</p>
             </div>
 
-            <div class="feature-card" data-aos="fade-left" data-aos-duration="800" data-aos-delay="500">
+            <div class="feature-card" data-aos="fade-left" data-aos-duration="600" data-aos-delay="250" data-aos-once="true">
                 <div class="feature-icon">💎</div>
                 <h3 class="feature-title">Premium Quality</h3>
                 <p class="feature-text">Built with cutting-edge technology and designed with you in mind. Excellence guaranteed!</p>
@@ -552,7 +575,7 @@
         </div>
 
         <!-- CTA Section -->
-        <div class="cta-section" data-aos="zoom-in-up" data-aos-duration="1000" data-aos-delay="700">
+        <div class="cta-section" data-aos="zoom-in-up" data-aos-duration="700" data-aos-delay="350" data-aos-once="true">
             <form id="notifyForm" class="notify-form">
                 <input 
                     type="email" 
@@ -560,11 +583,8 @@
                     placeholder="Enter your email address" 
                     required 
                     class="email-input"
-                    data-aos="fade-right"
-                    data-aos-duration="800"
-                    data-aos-delay="800"
                 >
-                <button type="submit" class="cta-button" data-aos="fade-left" data-aos-duration="800" data-aos-delay="900">
+                <button type="submit" class="cta-button">
                     <span class="sparkle">🔔</span>
                     Notify Me When Ready
                 </button>
@@ -573,12 +593,12 @@
         </div>
 
         <!-- Footer -->
-        <div class="footer" data-aos="fade-up" data-aos-duration="800" data-aos-delay="1000">
+        <div class="footer" data-aos="fade-up" data-aos-duration="600" data-aos-delay="450" data-aos-once="true">
             <div class="social-links">
-                <a href="https://x.com/EDITCRAFT161240" class="social-link" title="Twitter" data-aos="flip-left" data-aos-delay="1100">𝕏</a>
-                <a href="https://www.facebook.com/profile.php?id=61583612515861" class="social-link" title="Facebook" data-aos="flip-left" data-aos-delay="1200">f</a>
-                <a href="https://www.instagram.com/corp.znex" class="social-link" title="Instagram" data-aos="flip-left" data-aos-delay="1300">📷</a>
-                <a href="https://www.linkedin.com/in/edit-craft-477468398" class="social-link" title="LinkedIn" data-aos="flip-left" data-aos-delay="1400">in</a>
+                <a href="https://x.com/EDITCRAFT161240" class="social-link" title="Twitter" data-aos="flip-left" data-aos-delay="500" data-aos-once="true">𝕏</a>
+                <a href="https://www.facebook.com/profile.php?id=61583612515861" class="social-link" title="Facebook" data-aos="flip-left" data-aos-delay="550" data-aos-once="true">f</a>
+                <a href="https://www.instagram.com/corp.znex" class="social-link" title="Instagram" data-aos="flip-left" data-aos-delay="600" data-aos-once="true">📷</a>
+                <a href="https://www.linkedin.com/in/edit-craft-477468398" class="social-link" title="LinkedIn" data-aos="flip-left" data-aos-delay="650" data-aos-once="true">in</a>
             </div>
             <p>&copy; 2024 EditCraft. All rights reserved. Built with passion 💚</p>
         </div>
@@ -594,7 +614,6 @@
             const button = e.target.querySelector('button');
             const originalButtonHTML = button.innerHTML;
             
-            // Disable button and show loading
             button.disabled = true;
             button.innerHTML = '<span>⏳</span> Subscribing...';
             message.style.display = 'none';
@@ -609,15 +628,12 @@
                 });
                 
                 const data = await response.json();
-                
                 message.style.display = 'block';
                 
                 if (data.success) {
                     message.textContent = '✅ ' + data.message;
                     message.className = 'form-message success';
                     document.getElementById('emailInput').value = '';
-                    
-                    // Show success animation
                     button.innerHTML = '<span>✓</span> Subscribed!';
                     setTimeout(() => {
                         button.innerHTML = originalButtonHTML;
@@ -639,46 +655,68 @@
             }
         });
 
-        // Create floating particles
+        // Optimized particle creation - fewer particles, better performance
         function createParticles() {
-            const particleCount = 30;
+            const particleCount = 15; // Reduced from 30
+            const particles = [];
+            
             for (let i = 0; i < particleCount; i++) {
                 const particle = document.createElement('div');
                 particle.className = 'particle';
                 particle.style.left = Math.random() * 100 + '%';
                 particle.style.top = Math.random() * 100 + '%';
-                particle.style.animationDelay = Math.random() * 5 + 's';
-                particle.style.animation = `float ${5 + Math.random() * 10}s ease-in-out infinite`;
+                
+                const duration = 8 + Math.random() * 12; // 8-20 seconds
+                const delay = Math.random() * 5;
+                
+                particle.style.animation = `float${i} ${duration}s ease-in-out ${delay}s infinite`;
+                particles.push(particle);
                 document.body.appendChild(particle);
             }
+            
+            // Create optimized keyframes
+            const style = document.createElement('style');
+            let keyframes = '';
+            
+            for (let i = 0; i < particleCount; i++) {
+                const x1 = (Math.random() - 0.5) * 80;
+                const y1 = (Math.random() - 0.5) * 80;
+                const x2 = (Math.random() - 0.5) * 80;
+                const y2 = (Math.random() - 0.5) * 80;
+                
+                keyframes += `
+                    @keyframes float${i} {
+                        0%, 100% { transform: translate(0, 0); }
+                        33% { transform: translate(${x1}px, ${y1}px); }
+                        66% { transform: translate(${x2}px, ${y2}px); }
+                    }
+                `;
+            }
+            
+            style.textContent = keyframes;
+            document.head.appendChild(style);
         }
 
-        // Particle float animation
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes float {
-                0%, 100% { transform: translate(0, 0); }
-                25% { transform: translate(${Math.random() * 100 - 50}px, ${Math.random() * 100 - 50}px); }
-                50% { transform: translate(${Math.random() * 100 - 50}px, ${Math.random() * 100 - 50}px); }
-                75% { transform: translate(${Math.random() * 100 - 50}px, ${Math.random() * 100 - 50}px); }
-            }
-        `;
-        document.head.appendChild(style);
-
-        createParticles();
+        // Use requestIdleCallback for better performance
+        if ('requestIdleCallback' in window) {
+            requestIdleCallback(createParticles);
+        } else {
+            setTimeout(createParticles, 100);
+        }
     </script>
     
     <!-- Initialize AOS -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         AOS.init({
-            duration: 1000,
-            easing: 'ease-out-cubic',
+            duration: 700,
+            easing: 'ease-out-quad',
             once: true,
-            offset: 100,
-            delay: 100,
+            offset: 80,
+            delay: 0,
             mirror: false,
             anchorPlacement: 'top-bottom',
+            disable: false,
         });
     </script>
 </body>
