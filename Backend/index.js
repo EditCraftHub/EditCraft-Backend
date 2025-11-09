@@ -52,6 +52,7 @@ app.use(cors({
     "http://localhost:3000",
     "http://localhost:5000",
     "https://editcraft.co.in",
+    "http://localhost:3001"
   ],
   credentials: true,
 }));
