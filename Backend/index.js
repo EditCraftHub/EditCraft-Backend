@@ -51,6 +51,7 @@ app.use(cors({
   origin: [
     "http://localhost:3000",
     "http://localhost:5000",
+    "https://api.editcraft.co.in",
     "https://editcraft.co.in",
     "http://localhost:3001"
   ],

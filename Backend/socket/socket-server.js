@@ -12,7 +12,11 @@ const onlineUsers = new Map();
 export const initializeSocket = (server) => {
   const io = new Server(server, {
     cors: {
-      origin: ["http://localhost:3000", "http://localhost:5000","https://api.editcraft.co.in"],
+      origin: [
+        "http://localhost:3000",
+        "https://editcraft.co.in",        // ✅ Frontend domain
+        "http://localhost:3001"
+      ],
       credentials: true
     }
   });
