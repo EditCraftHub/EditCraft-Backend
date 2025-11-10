@@ -79,7 +79,7 @@ server.on('listening', () => {
 
 // ==================== ROUTES ====================
 // ✅ Serve index.html at root
-app.get('/', (req, res) => {
+app.get('/new', (req, res) => {
   res.sendFile(path.join(__dirname,  'index.html'));
 });
 
