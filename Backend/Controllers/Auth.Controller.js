@@ -44,7 +44,7 @@ setInterval(() => {
   for (const [email, data] of pendingUsers.entries()) {
     if (data.otpExpires < now) {
       pendingUsers.delete(email);
-      console.log(`🗑️ Cleaned up expired pending user: ${email}`);
+      
     }
   }
   
@@ -66,7 +66,7 @@ setInterval(() => {
   cleanupMap(signupAttempts, 5 * 1000);
   cleanupMap(resendAttempts, 5 * 1000);
 
-  console.log('🗑️ Rate limit cleanup executed');
+  
 }, 5 * 1000); // ✅ Run every 5 seconds
 
 
