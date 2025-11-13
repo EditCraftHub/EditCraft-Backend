@@ -130,7 +130,8 @@ export const createPost = async (req, res) => {
             ContentType: file.mimetype
           };
           const uploaded = await s3.upload(imageParams).promise();
-          postData.image.push(uploaded.Location);
+          const publicUrl = `${process.env.R2_PUBLIC_URL}/${imageParams.Key}`;
+          postData.image.push(publicUrl);
         } catch (s3Error) {
           console.error("S3 Upload Error:", s3Error);
           return res.status(500).json({
@@ -173,7 +174,8 @@ export const createPost = async (req, res) => {
             ContentType: file.mimetype
           };
           const uploaded = await s3.upload(videoParams).promise();
-          postData.video.push(uploaded.Location);
+          const publicUrl = `${process.env.R2_PUBLIC_URL}/${videoParams.Key}`;
+          postData.video.push(publicUrl);
         } catch (s3Error) {
           console.error("S3 Upload Error:", s3Error);
           return res.status(500).json({

@@ -1,4 +1,7 @@
 import mongoose from "mongoose";
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 const userSchema = new mongoose.Schema({
     username: {
@@ -40,12 +43,12 @@ const userSchema = new mongoose.Schema({
 
     profilePic: {
         type: String, 
-        default: "https://cdn-icons-png.flaticon.com/512/149/149071.png"
+        default:  process.env.DEFAULT_PROFILE_PIC
     },
 
     banner: {
         type: String, 
-        default: "https://img.freepik.com/free-vector/gradient-abstract-background_23-2149117059.jpg"
+        default: process.env.DEFAULT_BANNER
     },
 
     followers: [{

@@ -253,33 +253,49 @@ export const updateMyProfile = async (req, res) => {
         throw new Error(`${type} file size exceeds 5MB limit`);
       }
 
+      const key = `${type}/${userId}-${Date.now()}-${file.originalname}`;
       const params = {
         Bucket: process.env.AWS_BUCKET_NAME,
-        Key: `${type}/${userId}-${Date.now()}-${file.originalname}`,
+        Key: key,
         Body: file.buffer,
         ContentType: file.mimetype,
       };
 
-      console.log(`📤 Uploading ${type} to S3...`);
+      console.log(`📤 Uploading ${type} to R2...`);
       const uploadResult = await s3.upload(params).promise();
-      console.log(`✅ ${type} upload successful:`, uploadResult.Location);
       
-      return uploadResult.Location;
+      // Construct public URL
+      const publicUrl = `${process.env.R2_PUBLIC_URL}/${key}`;
+      console.log(`✅ ${type} upload successful:`, publicUrl);
+      
+      return publicUrl;
     };
 
-    // Helper function to delete old image from S3
+    // Helper function to delete old image from R2
     const deleteOldImage = async (imageUrl, type) => {
       if (!imageUrl) return;
       
       try {
-        const urlParts = imageUrl.split('.com/');
-        if (urlParts.length > 1) {
-          const oldKey = urlParts[1];
+        // Extract key from public URL
+        const publicBaseUrl = process.env.R2_PUBLIC_URL;
+        if (imageUrl.startsWith(publicBaseUrl)) {
+          const oldKey = imageUrl.replace(`${publicBaseUrl}/`, '');
           await s3.deleteObject({
             Bucket: process.env.AWS_BUCKET_NAME,
             Key: oldKey
           }).promise();
           console.log(`🗑️ Deleted old ${type}:`, oldKey);
+        } else {
+          // Legacy URL format (from old S3)
+          const urlParts = imageUrl.split('.com/');
+          if (urlParts.length > 1) {
+            const oldKey = urlParts[1];
+            await s3.deleteObject({
+              Bucket: process.env.AWS_BUCKET_NAME,
+              Key: oldKey
+            }).promise();
+            console.log(`🗑️ Deleted old ${type}:`, oldKey);
+          }
         }
       } catch (deleteError) {
         console.error(`⚠️ Error deleting old ${type}:`, deleteError.message);
@@ -289,7 +305,7 @@ export const updateMyProfile = async (req, res) => {
     // Get user's old images
     const user = await UserModel.findById(userId).select('profilePic banner');
 
-    // Upload profile pic to S3
+    // Upload profile pic to R2
     if (profilePicFile) {
       try {
         const profilePicUrl = await uploadImage(profilePicFile, 'profile');
@@ -306,7 +322,7 @@ export const updateMyProfile = async (req, res) => {
       }
     }
 
-    // Upload banner to S3
+    // Upload banner to R2
     if (bannerFile) {
       try {
         const bannerUrl = await uploadImage(bannerFile, 'banner');
@@ -350,7 +366,6 @@ export const updateMyProfile = async (req, res) => {
     });
   }
 };
-
 /**
  * Follow a user
  */
